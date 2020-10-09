@@ -3696,7 +3696,7 @@ static UniValue createwallet(const Config &config,
     };
     
     std::vector<std::string> words;
-    flags.SetLEGACY();
+    flags.SetBLS();
     SecureString passphrase(password);
     std::shared_ptr<CWallet> const wallet = CWallet::CreateWalletFromFile(
                                                                           chainParams,
@@ -3712,6 +3712,7 @@ static UniValue createwallet(const Config &config,
 
     UniValue obj(UniValue::VOBJ);
     obj.pushKV("name", wallet->GetName());
+    obj.pushKV("bls addresses", wallet->HasBLSKeys());
     obj.pushKV("warning", warning);
 
     return obj;
